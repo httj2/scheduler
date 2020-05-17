@@ -20,13 +20,28 @@ export function getAppointmentsForDay(state, day) {
 
 export function getInterview(state, interview) {
   const keys = (Object.keys(state.interviewers));
-  let result = {};
+  // let result = {};
   if (interview) {
     if (keys.includes(interview.interviewer.toString())) {
-    return result = {
-      'student': interview.student, 
+      const result = {
+      ...interview, 
       'interviewer': state.interviewers[interview.interviewer.toString()]}
+      return result;
     };
   }
   return null;
+}
+
+export function getInterviewersForDay(state, day) {
+  let output = [];
+  const filteredDay = state.days.filter(dayObj => day === dayObj.name);
+  if (filteredDay.length === 0) {
+    return [];
+  }
+
+  filteredDay[0].interviewers.forEach(item => {
+    output.push(state.interviewers[item]);
+  });
+
+  return output;
 }

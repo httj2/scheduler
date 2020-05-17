@@ -4,7 +4,7 @@ import "components/Application.scss";
 
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 // import DayListItem from "components/DayListItem"
 
 
@@ -15,6 +15,9 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
+  
+  const interviewers = getInterviewersForDay(state, state.day);
+  
   const setDay = day => setState({ ...state, day });
   // const setDays = days => setState(prev => ({ ...prev, days }));
   const appointments = getAppointmentsForDay(state, state.day)
@@ -48,6 +51,7 @@ export default function Application(props) {
       id={appointment.id}
       time={appointment.time}
       interview={interview}
+      interviewers={interviewers}
     />
     );
   });
