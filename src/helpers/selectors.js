@@ -20,11 +20,10 @@ export function getAppointmentsForDay(state, day) {
 
 export function getInterview(state, interview) {
   const keys = (Object.keys(state.interviewers));
-  // let result = {};
   if (interview) {
     if (keys.includes(interview.interviewer.toString())) {
-      const result = {
-      ...interview, 
+    const result = {
+      'student': interview.student, 
       'interviewer': state.interviewers[interview.interviewer.toString()]}
       return result;
     };
@@ -34,7 +33,7 @@ export function getInterview(state, interview) {
 
 export function getInterviewersForDay(state, day) {
   let output = [];
-  const filteredDay = state.days.filter(dayObj => day === dayObj.name);
+  const filteredDay = state.days.filter(item => item.name === day);
   if (filteredDay.length === 0) {
     return [];
   }
