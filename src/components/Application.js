@@ -8,10 +8,10 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 
 
 export default function Application(props) {
- 
   const [state, setState] = useState({
     day: "Monday",
     days: [],
+    interviewers: {},
     appointments: {}
   });
   
@@ -21,7 +21,31 @@ export default function Application(props) {
   // const setDays = days => setState(prev => ({ ...prev, days }));
   const appointments = getAppointmentsForDay(state, state.day)
 
+  function bookInterview(id, interview) {
+    console.log('id', id, "interview", interview)
+    return axios.put(`http://localhost:8001/api/appointments/${id} `, {interview})
+      .then(() => {
+      const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+      };
+      const appointments = {
+        ...state.appointments,
+        [id]: appointment
+      }
+      console.log('appointment:', appointment)
+      console.log('appointments:', appointments)
 
+      setState({
+        ...state,
+        appointments
+      })
+    })
+
+
+    
+   
+  }
 
   
   useEffect(() => {
@@ -51,6 +75,7 @@ export default function Application(props) {
       time={appointment.time}
       interview={interview}
       interviewers={interviewers}
+      bookInterview={bookInterview}
     />
     );
   });
@@ -79,7 +104,11 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {scheduleAppointments}
-        <Appointment key="last" time="5pm" />
+        {/* <Appointment 
+          key="last" 
+          time="5pm" 
+
+          /> */}
       </section>
     </main>
   );
