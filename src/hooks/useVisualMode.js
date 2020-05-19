@@ -9,11 +9,12 @@ export function useVisualMode(initial) {
     if (replace) {
       setHistory(history => [...history])
     } else {
-          setHistory(history => [...history, mode]);
+      setHistory(history => [...history, mode]);
     }
     setMode(newMode)
   }
   const back = () => {
+
     if (history.length > 1) {
        setMode(history.pop())
     }

@@ -17,13 +17,13 @@ const Show = (props) => {
         className="appointment__actions-button"
         src="images/edit.png"
         alt="Edit"
-        onClick={props.onEdit}
+        onClick={() => props.edit()}
       />
       <img
         className="appointment__actions-button"
         src="images/trash.png"
         alt="Delete"
-        onClick={props.onDelete}
+        onClick={() => props.confirmDeletion()}
       />
     </section>
   </section>
