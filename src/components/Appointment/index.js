@@ -64,7 +64,6 @@ export default function Appointment(props) {
   }
 
   function remove(id) {
-    console.log('id', id)
     transition(DELETING, true)
     props
     .cancelInterview(id)
@@ -73,7 +72,7 @@ export default function Appointment(props) {
   }
 
   return (
-  <article className="appointment" data-testid="appointment">
+  <article className="appointment"data-testid="appointment">
     <Header time={props.time} />
     {mode === EMPTY && <Empty onAdd={onAdd} />}
     {mode === SHOW && (
@@ -88,8 +87,8 @@ export default function Appointment(props) {
       <Form 
         name = {props.name}  
         interviewers={props.interviewers}
-        onCancel={onCancel}
-        onSave={save}
+        onCancel={() => back()}
+        onSave={(name, interviewer) => save(name, interviewer)}
       />
     )}
     {mode === CONFIRM && (
