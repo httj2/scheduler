@@ -4,19 +4,20 @@ import Button from '../Button'
 
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.value || null);
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-  
+
+
   const reset = () => {
     setName("");
     setInterviewer(null);
-  }
+  };
+
   const cancel = () => {
     reset();
     props.onCancel()
   }
   
-
   function validate() {
     if (name === "") {
       setError("Student name cannot be blank");
@@ -46,7 +47,9 @@ export default function Form(props) {
         <InterviewerList 
           interviewers={props.interviewers}
           value={interviewer}
-          onChange={setInterviewer}
+          setInterviewer={setInterviewer}
+          onChange={event => {
+            setInterviewer(event.target.value)}}
         />
       </section>
       <section className="appointment__card-right">

@@ -4,7 +4,7 @@ const classnames = require('classnames');
 
 const InterviewerListItem = (props) => {
   const interviewerClass = classnames("interviewers__item", {
-    "interviewers__item--selected": props.selected
+    "interviewers__item--selected": props.selected,
   })
   return (
     <li className={interviewerClass} 
