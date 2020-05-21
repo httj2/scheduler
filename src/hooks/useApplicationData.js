@@ -37,19 +37,17 @@ export default function useApplicationData(){
     }
   };
   function bookInterview(id, interview) {
-
-    return axios.put(`http://localhost:8001/api/appointments/${id} `, {interview})
-      .then(() => {
-      const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-      };
-      const appointments = {
+    const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+          };
+    const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-      const days = decrementSpots(id)
-    
+    const days = decrementSpots(id) 
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {appointment})
+      .then(() => {
       setState({
         ...state,
         appointments,
@@ -88,7 +86,7 @@ export default function useApplicationData(){
       Promise.resolve(appointmentsPromise),
       Promise.resolve(interviewersPromise)
     ]).then((all) => {
-      setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
       const [daysPromise, appointmentsPromise, interviewersPromise] = all;
     })
     .catch((err) => console.log('didnt work:', err))
