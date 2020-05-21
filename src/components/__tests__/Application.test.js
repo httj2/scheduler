@@ -151,16 +151,15 @@ describe("Application", () => {
   
     // 2. Wait until the text "Archie Cohen" is displayed.
     await waitForElement(() => getByText(container, "Archie Cohen"));
-  
-    // 3. Click the "Delete" button on the booked appointment.
+   // 3. Reject the delete request:
+   axios.delete.mockRejectedValueOnce();
+    // 4. Click the "Delete" button on the booked appointment.
     const appointment = getAllByTestId(container, "appointment").find(
       appointment => queryByText(appointment, "Archie Cohen")
     );
-    // 4. Reject the delete request:
-    axios.delete.mockRejectedValueOnce();
-  // 7. Click delete button
+  // 5. Click delete button
     fireEvent.click(queryByAltText(appointment, "Delete"));
-      // 5. Check for error message:
+      // 6. Check for error message:
     return () => expect(getByText(appointment, "Could not delete appointment.")).toBeInTheDocument();
   })
 
